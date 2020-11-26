@@ -20,29 +20,21 @@ export default function Home() {
   if (!data) return <Box>loading...</Box>
 
   const dataMapped = data.map((post) => {
-    const {
-      width,
-      height,
-      url
-    } = post.data.preview.images[0].resolutions[2];
     return {
       id: post.data.id,
-      url,
-      width,
-      height,
-      original: post.data.preview.images
+      src: post.data.preview.images[0].resolutions[3].url
     }
   });
 
   console.log(dataMapped)
 
   return (
-    <Box minHeight="100vh" display="flex" flexDir="column" backgroundColor="gray.200" paddingY={4}>
+    <Box shadow="sm" minHeight="100vh" display="flex" flexDir="column" backgroundColor="gray.200" paddingY={4}>
       <Container maxW="xl">
         <SimpleGrid columns={{ sm: 1, md: 2, lg: 3 }} spacing={5}>
           {dataMapped.map((post) => (
             <Box key={post.id} w="100%" h="240px" backgroundColor="white" position="relative">
-              <NextImage layout="fill" objectFit="cover" src={post.url} />
+              <NextImage quality="50" layout="fill" objectFit="cover" src={post.src} />
             </Box>
           ))}
         </SimpleGrid>
