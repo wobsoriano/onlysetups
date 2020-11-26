@@ -1,4 +1,4 @@
-import { Box, Container, SimpleGrid, Image } from "@chakra-ui/react";
+import { Box, Container, SimpleGrid, Text } from "@chakra-ui/react";
 import useSWR from "swr";
 import NextImage from "next/image";
 
@@ -10,7 +10,7 @@ const fetcher = () => {
 
 
 export default function Home() {
-  const { data, error } = useSWR('/r/battlestations', fetcher)
+  const { data, error } = useSWR('r/battlestations', fetcher)
 
   if (error) {
     console.log(error)
@@ -22,19 +22,25 @@ export default function Home() {
   const dataMapped = data.map((post) => {
     return {
       id: post.data.id,
-      src: post.data.preview.images[0].resolutions[3].url
+      src: post.data.preview.images[0].resolutions[3].url,
+      author: post.data.author
     }
   });
 
   console.log(dataMapped)
 
   return (
-    <Box shadow="sm" minHeight="100vh" display="flex" flexDir="column" backgroundColor="gray.200" paddingY={4}>
+    <Box shadow="sm" minHeight="100vh" display="flex" flexDir="column" backgroundColor="gray.900" paddingY={4}>
       <Container maxW="xl">
         <SimpleGrid columns={{ sm: 1, md: 2, lg: 3 }} spacing={5}>
           {dataMapped.map((post) => (
-            <Box key={post.id} w="100%" h="240px" backgroundColor="white" position="relative">
-              <NextImage quality="50" layout="fill" objectFit="cover" src={post.src} />
+            <Box key={post.id} backgroundColor="gray.700" borderRadius="lg" overflow="hidden">
+              <Box h="240px" position="relative">
+                <NextImage quality="50" layout="fill" objectFit="cover" src={post.src} />
+              </Box>
+              <Box p="2">
+                <Text fontSize={{ sm: 'xs', md: 'sm' }} color="white">Posted by u/{post.author}</Text>
+              </Box>
             </Box>
           ))}
         </SimpleGrid>
