@@ -13,7 +13,7 @@ export default function Card({ post, onImageClick }) {
                 <Text fontSize={['xs', null, 'sm']}>Posted by <Link fontWeight="semibold" href={`https://www.reddit.com/user/${post.author}/`} isExternal>u/{post.author}</Link></Text>
                 <Flex align="center">
                     <ArrowUpIcon />
-                    <Text ml={1} fontSize={['xs', null, 'sm']}>{post.ups}</Text>
+                    <Text ml={1} fontSize={['xs', null, 'sm']}>{post.ups.toLocaleString()}</Text>
                 </Flex>
             </Flex>
         </Box>

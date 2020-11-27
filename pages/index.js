@@ -17,12 +17,18 @@ export default function Home({ posts }) {
 
     return {
       id: post.data.id,
+      title: post.data.title,
       src: url,
       author: post.data.author,
       width,
       height,
       ups: post.data.ups,
-      downs: post.data.downs
+      downs: post.data.downs,
+      awards: post.data.all_awardings.map((award) => ({
+        src: award.resized_static_icons[0].url,
+        count: award.count,
+        description: award.description
+      }))
     }
   });
 
