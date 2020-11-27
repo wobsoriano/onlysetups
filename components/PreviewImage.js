@@ -1,5 +1,5 @@
 import { ExternalLinkIcon } from "@chakra-ui/icons";
-import { Image, Text, Modal, ModalBody, ModalCloseButton, ModalContent, ModalHeader, ModalOverlay, Button, ModalFooter, HStack, Tooltip, Flex, Link, Box } from "@chakra-ui/react";
+import { Image, Text, Modal, useBreakpointValue, ModalBody, ModalCloseButton, ModalContent, ModalHeader, ModalOverlay, Button, ModalFooter, HStack, Tooltip, Flex, Link, Box, Tag } from "@chakra-ui/react";
 import dayjs from 'dayjs'
 import relativeTime from 'dayjs/plugin/relativeTime';
 dayjs.extend(relativeTime)
@@ -7,8 +7,10 @@ dayjs.extend(relativeTime)
 
 export default function PreviewImage(props) {
     const { isOpen, onClose, post } = props;
+    const size = useBreakpointValue({ base: "md", md: "2xl" })
+
     return (
-        <Modal size="2xl" isOpen={isOpen} onClose={onClose} motionPreset="slideInBottom" >
+        <Modal size={size} isOpen={isOpen} onClose={onClose} motionPreset="slideInBottom" >
             <ModalOverlay />
             <ModalContent>
                 <ModalHeader>
@@ -24,18 +26,17 @@ export default function PreviewImage(props) {
                             )
                         })}
                     </HStack>
-                    {/* <Text fontSize="md" fontWeight="normal"><Link>u/{post?.author}</Link></Text> */}
                 </ModalHeader>
                 <ModalCloseButton />
                 <ModalBody>
                     <Image cursor="pointer" src={post?.src} />
                     <Text mt={3} fontSize="lg" fontWeight="semibold">{post?.title}</Text>
-                    <Text fontSize="xs">Posted by <Link>u/{post?.author}</Link> {dayjs(post?.created_utc).fromNow()}</Text>
+                    <Text fontSize="xs" mt={2}>Posted by <Link>u/{post?.author}</Link> {dayjs(post?.created_utc).fromNow()}</Text>
                 </ModalBody>
                 <ModalFooter>
-                    <Button leftIcon={<ExternalLinkIcon />} colorScheme="gray" mr={3}>
-                    Open in Reddit
-                    </Button>
+                    <Link href={post?.permalink} isExternal mr={3}>
+                    Open in Reddit <ExternalLinkIcon mx="2px" />
+                    </Link>
                     {/* <Button variant="ghost">View in Reddit</Button> */}
                 </ModalFooter>
             </ModalContent>

@@ -29,7 +29,8 @@ export default function Home({ posts }) {
         description: award.description
       })),
       created_utc: post.data.created_utc,
-      fullResUrl: post.data.url
+      fullResUrl: post.data.url,
+      permalink: `https://reddit.com${post.data.permalink}`
     }
   });
 

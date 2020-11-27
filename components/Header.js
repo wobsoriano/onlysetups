@@ -1,11 +1,11 @@
 import { Box, Container, Button, IconButton, useColorMode, Menu, MenuButton, MenuList, MenuGroup, MenuItem } from "@chakra-ui/react";
 import { MoonIcon, SunIcon } from '@chakra-ui/icons';
-import { FilterIcon, FireIcon, ChartBarIcon } from '../styles/icons';
+import { FilterIcon, FireIcon, ChartBarIcon, LightBulbIcon } from '../styles/icons';
 
 export default function Header(props) {
     const { colorMode, toggleColorMode } = useColorMode()
 
-    const themeIcon = colorMode === 'light' ? <MoonIcon /> : <SunIcon />;
+    const themeIcon = colorMode === 'light' ? <MoonIcon /> : <LightBulbIcon />;
 
     return (
         <Box {...props}>
