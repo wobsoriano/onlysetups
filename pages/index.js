@@ -1,4 +1,4 @@
-import { Box, Container, SimpleGrid, Text, useDisclosure, Image, Flex, Heading, useColorModeValue, Link } from "@chakra-ui/react";
+import { Box, Container, SimpleGrid, Text, useDisclosure, Heading, Link } from "@chakra-ui/react";
 import PreviewImage from "../components/PreviewImage";
 import { useState } from "react";
 import Header from '../components/Header';
@@ -7,8 +7,6 @@ import Card from '../components/Card';
 export default function Home({ posts }) {
   const { isOpen, onOpen, onClose } = useDisclosure()
   const [selectedPost, setSelectedPost] = useState(null);
-
-  const cardColor = useColorModeValue("gray.100", "gray.700")
 
   const postsMapped = posts.map((post) => {
     const {
@@ -33,7 +31,7 @@ export default function Home({ posts }) {
   const view = (post) => {
     console.log('post', post)
     setSelectedPost(post);
-    // onOpen();
+    onOpen();
   }
 
   return (
@@ -45,11 +43,11 @@ export default function Home({ posts }) {
           <Text fontSize="lg" fontWeight="semibold" mt={2}>Epic workstations from <Link href="https://reddit.com/r/battlestations" isExternal>r/battlestations</Link></Text>
         </Box>
         <SimpleGrid columns={{ sm: 1, md: 2, lg: 3 }} spacing={5} mt={5}>
-          {postsMapped.map((post) => <Card key={post.id} post={post} />)}
+          {postsMapped.map((post) => <Card key={post.id} post={post} onImageClick={view}  />)}
         </SimpleGrid>
       </Container>
 
-      <PreviewImage isOpen={isOpen} onClose={onClose} post={selectedPost} />
+      <PreviewImage isOpen={isOpen} onClose={onClose} post={selectedPost} onImageClick={view} />
     </Box>
   )
 }
