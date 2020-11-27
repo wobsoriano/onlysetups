@@ -1,6 +1,6 @@
 import { Box, Container, SimpleGrid, Text, useDisclosure } from "@chakra-ui/react";
 import NextImage from "next/image";
-import PreviewImage from '../components/PreviewImage';
+import PreviewImage from "../components/PreviewImage";
 import { useState } from "react";
 
 export default function Home({ posts }) {
@@ -28,7 +28,7 @@ export default function Home({ posts }) {
   const view = (post) => {
     console.log('post', post)
     setSelectedPost(post);
-    onOpen();
+    // onOpen();
   }
 
   return (
@@ -53,7 +53,7 @@ export default function Home({ posts }) {
   )
 }
 
-export async function getStaticProps(context) {
+export async function getStaticProps() {
   const res = await fetch('https://www.reddit.com/r/battlestations.json?raw_json=1');
   const data = await res.json();
 
