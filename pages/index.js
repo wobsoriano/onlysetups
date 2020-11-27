@@ -32,7 +32,7 @@ export default function Home() {
 
     return {
       id: post.data.id,
-      src: post.data.url,
+      src: url,
       author: post.data.author,
       width,
       height
@@ -54,7 +54,7 @@ export default function Home() {
           {dataMapped.map((post) => (
             <Box key={post.id} backgroundColor="gray.700" borderRadius="lg" overflow="hidden">
               <Box onClick={() => view(post)} cursor="zoom-in" h="240px" position="relative">
-                <NextImage quality="25" layout="fill" objectFit="cover" src={post.src} />
+                <NextImage layout="fill" objectFit="cover" src={post.src} />
               </Box>
               <Box p="2">
                 <Text fontSize={{ sm: 'xs', md: 'sm' }} color="white">Posted by u/{post.author}</Text>
