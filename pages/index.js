@@ -1,29 +1,13 @@
 import { Box, Container, SimpleGrid, Text, useDisclosure } from "@chakra-ui/react";
-import useSWR from "swr";
 import NextImage from "next/image";
 import PreviewImage from '../components/PreviewImage';
 import { useState } from "react";
 
-const fetcher = () => {
-  return fetch('https://www.reddit.com/r/battlestations.json?limit=15&raw_json=1')
-  .then(res => res.json())
-  .then(({ data }) => data.children.filter(i => i.data.post_hint === 'image'))
-}
-
-
-export default function Home() {
+export default function Home({ posts }) {
   const { isOpen, onOpen, onClose } = useDisclosure()
-  const { data, error } = useSWR('r/battlestations', fetcher)
   const [selectedPost, setSelectedPost] = useState(null);
 
-  if (error) {
-    console.log(error)
-    return <Box>Error</Box>
-  }
-
-  if (!data) return <Box>loading...</Box>
-
-  const dataMapped = data.map((post) => {
+  const postsMapped = posts.map((post) => {
     const {
       width,
       height,
@@ -39,7 +23,7 @@ export default function Home() {
     }
   });
 
-  console.log(dataMapped)
+  console.log(postsMapped)
 
   const view = (post) => {
     console.log('post', post)
@@ -51,7 +35,7 @@ export default function Home() {
     <Box shadow="sm" minHeight="100vh" display="flex" flexDir="column" backgroundColor="gray.900" paddingY={4}>
       <Container maxW="xl">
         <SimpleGrid columns={{ sm: 1, md: 2, lg: 3 }} spacing={5}>
-          {dataMapped.map((post) => (
+          {postsMapped.map((post) => (
             <Box key={post.id} backgroundColor="gray.700" borderRadius="lg" overflow="hidden">
               <Box onClick={() => view(post)} cursor="zoom-in" h="240px" position="relative">
                 <NextImage layout="fill" objectFit="cover" src={post.src} />
@@ -67,4 +51,21 @@ export default function Home() {
       <PreviewImage isOpen={isOpen} onClose={onClose} post={selectedPost} />
     </Box>
   )
+}
+
+export async function getStaticProps(context) {
+  const res = await fetch('https://www.reddit.com/r/battlestations.json?raw_json=1');
+  const data = await res.json();
+
+  if (!data) {
+    return {
+      notFound: true,
+    }
+  }
+
+  return {
+    props: {
+      posts: data.data.children.filter(i => i.data.post_hint === 'image')
+    }
+  }
 }
