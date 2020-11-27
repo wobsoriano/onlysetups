@@ -1,5 +1,5 @@
-import { Box, Container, SimpleGrid, Text, useDisclosure } from "@chakra-ui/react";
-import NextImage from "next/image";
+import { Box, Container, SimpleGrid, Text, useDisclosure, Image } from "@chakra-ui/react";
+// import NextImage from "next/image";
 import PreviewImage from "../components/PreviewImage";
 import { useState } from "react";
 
@@ -38,7 +38,7 @@ export default function Home({ posts }) {
           {postsMapped.map((post) => (
             <Box key={post.id} backgroundColor="gray.700" borderRadius="lg" overflow="hidden">
               <Box onClick={() => view(post)} cursor="zoom-in" h="240px" position="relative">
-                <NextImage layout="fill" objectFit="cover" src={post.src} />
+                <Image w="100%" h="100%" objectFit="cover" src={post.src} />
               </Box>
               <Box p="2">
                 <Text fontSize={{ sm: 'xs', md: 'sm' }} color="white">Posted by u/{post.author}</Text>
