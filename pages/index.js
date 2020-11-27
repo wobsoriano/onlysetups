@@ -23,12 +23,13 @@ export default function Home({ posts }) {
       width,
       height,
       ups: post.data.ups,
-      downs: post.data.downs,
       awards: post.data.all_awardings.map((award) => ({
         src: award.resized_static_icons[0].url,
         count: award.count,
         description: award.description
-      }))
+      })),
+      created_utc: post.data.created_utc,
+      fullResUrl: post.data.url
     }
   });
 
@@ -48,7 +49,7 @@ export default function Home({ posts }) {
           <Heading as="h1" size="4xl">PC Battlestations</Heading>
           <Text fontSize="lg" fontWeight="semibold" mt={2}>Epic workstations from <Link href="https://reddit.com/r/battlestations" isExternal>r/battlestations</Link></Text>
         </Box>
-        <SimpleGrid columns={{ sm: 1, md: 2, lg: 3 }} spacing={5} mt={5}>
+        <SimpleGrid columns={{ base: 1, md: 2, lg: 3 }} spacing={5} mt={5}>
           {postsMapped.map((post) => <Card key={post.id} post={post} onImageClick={view}  />)}
         </SimpleGrid>
       </Container>

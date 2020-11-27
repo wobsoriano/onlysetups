@@ -6,7 +6,7 @@ export default function Card({ post, onImageClick }) {
 
     return (
         <Box backgroundColor={cardColor} borderRadius={['sm', null, 'md']} overflow="hidden">
-            <Box onClick={() => onImageClick(post)} cursor="zoom-in" h="240px" position="relative">
+            <Box onClick={() => onImageClick(post)} cursor="pointer" h="240px" position="relative">
                 <Image w="100%" h="100%" objectFit="cover" src={post.src} />
             </Box>
             <Flex px="4" py="2" align="center" justify="space-between" w="100%">
