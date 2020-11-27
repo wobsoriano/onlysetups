@@ -1,7 +1,8 @@
-import { Box, Container, SimpleGrid, Text, useDisclosure, Image } from "@chakra-ui/react";
+import { Box, Container, SimpleGrid, Text, useDisclosure, Image, Flex } from "@chakra-ui/react";
 // import NextImage from "next/image";
 import PreviewImage from "../components/PreviewImage";
 import { useState } from "react";
+import { ArrowUpIcon } from '@chakra-ui/icons'
 
 export default function Home({ posts }) {
   const { isOpen, onOpen, onClose } = useDisclosure()
@@ -19,7 +20,9 @@ export default function Home({ posts }) {
       src: url,
       author: post.data.author,
       width,
-      height
+      height,
+      ups: post.data.ups,
+      downs: post.data.downs
     }
   });
 
@@ -40,9 +43,13 @@ export default function Home({ posts }) {
               <Box onClick={() => view(post)} cursor="zoom-in" h="240px" position="relative">
                 <Image w="100%" h="100%" objectFit="cover" src={post.src} />
               </Box>
-              <Box p="2">
-                <Text fontSize={{ sm: 'xs', md: 'sm' }} color="white">Posted by u/{post.author}</Text>
-              </Box>
+              <Flex px="4" py="2" align="center" justify="space-between" w="100%">
+                <Text fontSize={{ sm: 'xs', md: 'sm' }} color="white">{post.author}</Text>
+                <Flex align="center">
+                  <ArrowUpIcon color="white" />
+                  <Text ml={1} fontSize={{ sm: 'xs', md: 'sm' }} color="white">{post.ups}</Text>
+                </Flex>
+              </Flex>
             </Box>
           ))}
         </SimpleGrid>
