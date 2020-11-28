@@ -60,8 +60,8 @@ export default function Home() {
 
   return (
     <Box minHeight="100vh" display="flex" flexDir="column">
-      <Header mb={8} filter={filter} setFilter={setFilter} />
-      <Container maxW="xl" mb={5}>
+      <Header filter={filter} setFilter={setFilter} />
+      <Container maxW="xl" mt="95px" mb={5}>
           <Box textAlign="center">
             <Heading as="h1" size="4xl">PC Battlestations</Heading>
             <Text fontSize="lg" fontWeight="semibold" mt={2}>Epic workstations from <Link href="https://reddit.com/r/battlestations" isExternal>r/battlestations</Link></Text>
