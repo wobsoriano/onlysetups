@@ -4,6 +4,7 @@ import { useState } from "react";
 import Card from '../components/Card';
 import PreviewImage from "../components/PreviewImage";
 import Header from '../components/Header';
+import Head from '../components/Head';
 
 import useRedditPosts, { transformPost } from '../hooks/useRedditPosts';
 import { RepeatIcon } from "@chakra-ui/icons";
@@ -49,13 +50,14 @@ export default function Home() {
 
   return (
     <Box minHeight="100vh" display="flex" flexDir="column">
+      <Head title="OnlySetups" />
       <Header filter={filter} setFilter={setFilter} subreddit={subreddit} setSubreddit={setSubreddit} />
       <Container maxW="xl" mt="95px" flex={1}>
           <Box textAlign="center">
             <Heading as="h1" size="4xl">OnlySetups</Heading>
             <Text fontSize="lg" fontWeight="semibold" mt={2}>Easily view workstations and gaming setups from <Link href="https://reddit.com" isExternal>reddit</Link></Text>
           </Box>
-          <SimpleGrid columns={{ base: 1, md: 2, lg: 3 }} spacing={5} mt={8}>
+          <SimpleGrid columns={{ base: 1, md: 2, lg: 3 }} spacing={5} mt={6}>
             {transformedPosts.map((post) => <Card key={post.id} post={post} onImageClick={view}  />)}
 
             {(isLoadingInitialData || isLoadingMore) && [...Array(15).keys()].map((item) => <Skeleton borderRadius={['sm', null, 'md']} key={item} height="275px" />)}
