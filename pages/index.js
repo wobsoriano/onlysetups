@@ -28,11 +28,7 @@ export default function Home() {
     return <Text>Error!</Text>
   }
 
-  if (isLoadingInitialData) {
-    return <Text>Loading...</Text>
-  }
-
-  const postsMapped = posts.filter(i => i.data.post_hint === 'image').map((post) => {
+  const postsMapped = !isLoadingInitialData ? posts.filter(i => i.data.post_hint === 'image').map((post) => {
     const {
       width,
       height,
@@ -56,7 +52,7 @@ export default function Home() {
       fullResUrl: post.data.url,
       permalink: `https://reddit.com${post.data.permalink}`
     }
-  });
+  }) : [];
 
   const view = (post) => {
     console.log('post', post)
@@ -73,9 +69,15 @@ export default function Home() {
             <Text fontSize="lg" fontWeight="semibold" mt={2}>Epic workstations from <Link href="https://reddit.com/r/battlestations" isExternal>r/battlestations</Link></Text>
           </Box>
           <SimpleGrid columns={{ base: 1, md: 2, lg: 3 }} spacing={5} mt={5}>
-            {/* {postsMapped.map((post, index) => <Skeleton key={index} isLoaded={posts}><Card post={post} onImageClick={view}  /></Skeleton>)} */}
-            {postsMapped.map((post, index) => <Card key={post.id} post={post} onImageClick={view}  />)}
+            {postsMapped.map((post) => <Card key={post.id} post={post} onImageClick={view}  />)}
+
+            {(isLoadingInitialData || isLoadingMore) && [...Array(15).keys()].map((item) => (
+              <Skeleton key={item}>
+                <Box h="240px" />
+              </Skeleton>
+            ))}
           </SimpleGrid>
+
           { !isReachingEnd && <Box textAlign="center" mt={5}>
             <Button onClick={() => setSize(size + 1)} isLoading={isLoadingMore}>Load More</Button>
           </Box> }
