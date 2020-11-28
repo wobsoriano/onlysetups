@@ -62,8 +62,15 @@ export const transformPost = (post, mediaSizeIndex = 3) => {
 
     if (is_gallery) {
       const galleryIds = Object.keys(media_metadata);
-      url = media_metadata[galleryIds[0]].p[mediaSizeIndex].u;
-      gallery = galleryIds.map((id) => media_metadata[id].p[mediaSizeIndex].u)
+      const resolutions = media_metadata[galleryIds[0]].p;
+
+      if (resolutions[mediaSizeIndex]) {
+        url = media_metadata[galleryIds[0]].p[mediaSizeIndex].u;
+        gallery = galleryIds.map((id) => media_metadata[id].p[mediaSizeIndex].u)
+      } else {
+        url = media_metadata[galleryIds[0]].p[resolutions.length - 1].u;
+        gallery = galleryIds.map((id) => media_metadata[id].p[resolutions.length - 1].u)
+      }
     } else {
       try {
         const resolutions = preview.images[0].resolutions;
