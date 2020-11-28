@@ -28,20 +28,23 @@ export default function Home() {
     return (<Text p={4}>An error occurred. Please <Link href="/">reload</Link>.</Text>)
   }
 
-  const postsMapped = !isLoadingInitialData ? posts.filter(i => i.data.post_hint === 'image').map((post) => {
-    const {
-      width,
-      height,
-      url
-    } = post.data.preview.images[0].resolutions[3];
+  const postsMapped = !isLoadingInitialData ? posts.filter(i => !i.data.stickied).map((post) => {
+    let url;
+    let gallery = [];
+
+    if (post.data.is_gallery) {
+      const galleryIds = Object.keys(post.data.media_metadata);
+      url = post.data.media_metadata[galleryIds[0]].p[3].u;
+      gallery = galleryIds.map((id) => post.data.media_metadata[id].p[3].u)
+    } else {
+      url = post.data.preview.images[0].resolutions[3].url;
+    }
 
     return {
       id: post.data.id,
       title: post.data.title,
       src: url,
       author: post.data.author,
-      width,
-      height,
       ups: post.data.ups,
       awards: post.data.all_awardings.map((award) => ({
         src: award.resized_static_icons[0].url,
@@ -50,7 +53,9 @@ export default function Home() {
       })),
       createdAt: fromNow(post.data.created_utc),
       fullResUrl: post.data.url,
-      permalink: `https://reddit.com${post.data.permalink}`
+      permalink: `https://reddit.com${post.data.permalink}`,
+      isGallery: post.data.is_gallery === true,
+      gallery
     }
   }) : [];
 
@@ -65,7 +70,7 @@ export default function Home() {
       <Container maxW="xl" mt="95px">
           <Box textAlign="center">
             <Heading as="h1" size="4xl">PC Battlestations</Heading>
-            <Text fontSize="lg" fontWeight="semibold" mt={2}>Epic workstations from <Link href="https://reddit.com/r/battlestations" isExternal>r/battlestations</Link></Text>
+            <Text fontSize="lg" fontWeight="semibold" mt={2}>Epic setups from <Link href="https://reddit.com/r/battlestations" isExternal>r/battlestations</Link></Text>
           </Box>
           <SimpleGrid columns={{ base: 1, md: 2, lg: 3 }} spacing={5} mt={5}>
             {postsMapped.map((post) => <Card key={post.id} post={post} onImageClick={view}  />)}

@@ -1,5 +1,7 @@
 import { ExternalLinkIcon } from "@chakra-ui/icons";
 import { Image, Text, Modal, useBreakpointValue, ModalBody, ModalCloseButton, ModalContent, ModalHeader, ModalOverlay, Button, ModalFooter, HStack, Tooltip, Flex, Link, Box, Tag } from "@chakra-ui/react";
+import "react-responsive-carousel/lib/styles/carousel.min.css";
+import { Carousel } from 'react-responsive-carousel';
 
 export default function PreviewImage(props) {
     const { isOpen, onClose, post } = props;
@@ -25,7 +27,9 @@ export default function PreviewImage(props) {
                 </ModalHeader>
                 <ModalCloseButton />
                 <ModalBody>
-                    <Image cursor="pointer" src={post.src} />
+                    { post.isGallery ? <Carousel showThumbs={false}>
+                            { post.gallery.map((src) => <Image key={src} src={src} />) }
+                        </Carousel> : <Image src={post.src} /> }
                     <Text mt={3} fontSize="lg" fontWeight="semibold">{post.title}</Text>
                     <Text fontSize="xs" mt={2}>Posted by <Link>u/{post.author}</Link> {post.createdAt}</Text>
                 </ModalBody>
