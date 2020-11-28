@@ -30,9 +30,9 @@ export default function PreviewImage(props) {
                     <Text fontSize="xs" mt={2}>Posted by <Link>u/{post.author}</Link> {post.createdAt}</Text>
                 </ModalBody>
                 <ModalFooter>
-                    <Link href={post.permalink} isExternal mr={3}>
-                    Open in Reddit <ExternalLinkIcon mx="2px" />
-                    </Link>
+                    <Button as="a" rightIcon={<ExternalLinkIcon />} colorScheme="gray" href={post.permalink} target="_blank" mr={3}>
+                    Open in Reddit
+                    </Button>
                     {/* <Button variant="ghost">View in Reddit</Button> */}
                 </ModalFooter>
             </ModalContent>

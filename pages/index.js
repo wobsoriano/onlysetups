@@ -7,6 +7,7 @@ import Header from '../components/Header';
 
 import { fromNow } from '../utils';
 import useRedditPosts from '../utils/useRedditPosts';
+import { RepeatIcon } from "@chakra-ui/icons";
 
 export default function Home() {
   const { isOpen, onOpen, onClose } = useDisclosure()
@@ -61,7 +62,7 @@ export default function Home() {
   return (
     <Box minHeight="100vh" display="flex" flexDir="column">
       <Header filter={filter} setFilter={setFilter} />
-      <Container maxW="xl" mt="95px" mb={5}>
+      <Container maxW="xl" mt="95px">
           <Box textAlign="center">
             <Heading as="h1" size="4xl">PC Battlestations</Heading>
             <Text fontSize="lg" fontWeight="semibold" mt={2}>Epic workstations from <Link href="https://reddit.com/r/battlestations" isExternal>r/battlestations</Link></Text>
@@ -69,14 +70,17 @@ export default function Home() {
           <SimpleGrid columns={{ base: 1, md: 2, lg: 3 }} spacing={5} mt={5}>
             {postsMapped.map((post) => <Card key={post.id} post={post} onImageClick={view}  />)}
 
-            {(isLoadingInitialData || isLoadingMore) && [...Array(15).keys()].map((item) => <Skeleton key={item} height="240px" />)}
+            {(isLoadingInitialData || isLoadingMore) && [...Array(15).keys()].map((item) => <Skeleton borderRadius={['sm', null, 'md']} key={item} height="275px" />)}
           </SimpleGrid>
 
-          { !isReachingEnd && <Box textAlign="center" mt={5}>
-            <Button onClick={() => setSize(size + 1)} isLoading={isLoadingMore}>Load More</Button>
+          { !isReachingEnd && <Box textAlign="center" mt={8}>
+            <Button leftIcon={<RepeatIcon />} onClick={() => setSize(size + 1)} isLoading={isLoadingMore}>Load More</Button>
           </Box> }
       </Container>
       { selectedPost && <PreviewImage isOpen={isOpen} onClose={onClose} post={selectedPost} />}
+      <Container as="footer" maxW="xl" textAlign="center" py={10}>
+          <Text>Made with ❤️ &nbsp; by <Link href="http://robsoriano.com/" isExternal>Robert</Link></Text>
+      </Container>
     </Box>
   )
 }
