@@ -1,4 +1,4 @@
-import { Box, Text, Image, Flex, useColorModeValue, Link } from "@chakra-ui/react";
+import { Box, Text, Img, Flex, useColorModeValue, Link } from "@chakra-ui/react";
 import { ArrowUpIcon } from '@chakra-ui/icons'
 
 export default function Card({ post, onImageClick }) {
@@ -7,7 +7,7 @@ export default function Card({ post, onImageClick }) {
     return (
         <Box backgroundColor={cardColor} borderRadius={['sm', null, 'md']} overflow="hidden">
             <Box onClick={() => onImageClick(post)} cursor="pointer" h="240px" position="relative">
-                <Image w="100%" h="100%" objectFit="cover" src={post.src} />
+                <Img  w="100%" h="100%" objectFit="cover" src={post.src} />
             </Box>
             <Flex px="4" py="2" align="center" justify="space-between" w="100%">
                 <Text fontSize={['xs', null, 'sm']}>Posted by <Link fontWeight="semibold" href={`https://www.reddit.com/user/${post.author}/`} isExternal>u/{post.author}</Link></Text>

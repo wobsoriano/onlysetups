@@ -2,7 +2,7 @@ import { Box, Container, Button, IconButton, useColorMode, Menu, MenuButton, Men
 import { MoonIcon } from '@chakra-ui/icons';
 import { FilterIcon, LightBulbIcon } from '../styles/icons';
 
-export default function Header({ filter, setFilter, ...props }) {
+export default function Header({ filter, setFilter, subreddit, setSubreddit, ...props }) {
     const { colorMode, toggleColorMode } = useColorMode();
     const bgColor = useColorModeValue("white", "gray.800")
     const themeIcon = colorMode === 'light' ? <MoonIcon /> : <LightBulbIcon />;
@@ -23,6 +23,12 @@ export default function Header({ filter, setFilter, ...props }) {
                                 <MenuItemOption value="hot">Hot</MenuItemOption>
                                 <MenuItemOption value="new">New</MenuItemOption>
                                 <MenuItemOption value="top">Top</MenuItemOption>
+                            </MenuOptionGroup>
+                            <MenuOptionGroup title="Subreddit" defaultValue={subreddit} type="radio" onChange={setSubreddit}>
+                                <MenuItemOption value="battlestations">r/battlestations</MenuItemOption>
+                                <MenuItemOption value="gamingsetups">r/gamingsetups</MenuItemOption>
+                                <MenuItemOption value="setups">r/setups</MenuItemOption>
+                                <MenuItemOption value="desksetup">r/desksetup</MenuItemOption>
                             </MenuOptionGroup>
                         </MenuList>
                     </Menu>
