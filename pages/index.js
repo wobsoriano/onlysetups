@@ -1,14 +1,38 @@
-import { Box, Container, SimpleGrid, Text, useDisclosure, Heading, Link } from "@chakra-ui/react";
-import PreviewImage from "../components/PreviewImage";
+import { Box, Container, SimpleGrid, Text, useDisclosure, Skeleton, Heading, Link, Button } from "@chakra-ui/react";
 import { useState } from "react";
-import Header from '../components/Header';
-import Card from '../components/Card';
 
-export default function Home({ posts }) {
+import Card from '../components/Card';
+import PreviewImage from "../components/PreviewImage";
+import Header from '../components/Header';
+
+import { fromNow } from '../utils';
+import useRedditPosts from '../utils/useRedditPosts';
+
+export default function Home() {
   const { isOpen, onOpen, onClose } = useDisclosure()
   const [selectedPost, setSelectedPost] = useState(null);
+  const [filter, setFilter] = useState('hot');
 
-  const postsMapped = posts.map((post) => {
+  const {
+    posts,
+    error,
+    isLoadingInitialData,
+    isLoadingMore,
+    size,
+    setSize,
+    isReachingEnd,
+  } = useRedditPosts('battlestations', filter);
+
+  if (error) {
+    console.log(error)
+    return <Text>Error!</Text>
+  }
+
+  if (isLoadingInitialData) {
+    return <Text>Loading...</Text>
+  }
+
+  const postsMapped = posts.filter(i => i.data.post_hint === 'image').map((post) => {
     const {
       width,
       height,
@@ -28,13 +52,11 @@ export default function Home({ posts }) {
         count: award.count,
         description: award.description
       })),
-      created_utc: post.data.created_utc,
+      createdAt: fromNow(post.data.created_utc),
       fullResUrl: post.data.url,
       permalink: `https://reddit.com${post.data.permalink}`
     }
   });
-
-  console.log(postsMapped)
 
   const view = (post) => {
     console.log('post', post)
@@ -44,35 +66,21 @@ export default function Home({ posts }) {
 
   return (
     <Box minHeight="100vh" display="flex" flexDir="column">
-      <Header mb={8} />
+      <Header mb={8} filter={filter} setFilter={setFilter} />
       <Container maxW="xl" mb={5}>
-        <Box textAlign="center">
-          <Heading as="h1" size="4xl">PC Battlestations</Heading>
-          <Text fontSize="lg" fontWeight="semibold" mt={2}>Epic workstations from <Link href="https://reddit.com/r/battlestations" isExternal>r/battlestations</Link></Text>
-        </Box>
-        <SimpleGrid columns={{ base: 1, md: 2, lg: 3 }} spacing={5} mt={5}>
-          {postsMapped.map((post) => <Card key={post.id} post={post} onImageClick={view}  />)}
-        </SimpleGrid>
+          <Box textAlign="center">
+            <Heading as="h1" size="4xl">PC Battlestations</Heading>
+            <Text fontSize="lg" fontWeight="semibold" mt={2}>Epic workstations from <Link href="https://reddit.com/r/battlestations" isExternal>r/battlestations</Link></Text>
+          </Box>
+          <SimpleGrid columns={{ base: 1, md: 2, lg: 3 }} spacing={5} mt={5}>
+            {/* {postsMapped.map((post, index) => <Skeleton key={index} isLoaded={posts}><Card post={post} onImageClick={view}  /></Skeleton>)} */}
+            {postsMapped.map((post, index) => <Card key={post.id} post={post} onImageClick={view}  />)}
+          </SimpleGrid>
+          { !isReachingEnd && <Box textAlign="center" mt={5}>
+            <Button onClick={() => setSize(size + 1)} isLoading={isLoadingMore}>Load More</Button>
+          </Box> }
       </Container>
-
-      <PreviewImage isOpen={isOpen} onClose={onClose} post={selectedPost} onImageClick={view} />
+      { selectedPost && <PreviewImage isOpen={isOpen} onClose={onClose} post={selectedPost} onImageClick={view} />}
     </Box>
   )
-}
-
-export async function getStaticProps() {
-  const res = await fetch('https://www.reddit.com/r/battlestations.json?raw_json=1');
-  const data = await res.json();
-
-  if (!data) {
-    return {
-      notFound: true,
-    }
-  }
-
-  return {
-    props: {
-      posts: data.data.children.filter(i => i.data.post_hint === 'image')
-    }
-  }
 }

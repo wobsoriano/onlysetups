@@ -1,9 +1,5 @@
 import { ExternalLinkIcon } from "@chakra-ui/icons";
 import { Image, Text, Modal, useBreakpointValue, ModalBody, ModalCloseButton, ModalContent, ModalHeader, ModalOverlay, Button, ModalFooter, HStack, Tooltip, Flex, Link, Box, Tag } from "@chakra-ui/react";
-import dayjs from 'dayjs'
-import relativeTime from 'dayjs/plugin/relativeTime';
-dayjs.extend(relativeTime)
-
 
 export default function PreviewImage(props) {
     const { isOpen, onClose, post } = props;
@@ -15,7 +11,7 @@ export default function PreviewImage(props) {
             <ModalContent>
                 <ModalHeader>
                     <HStack spacing={1}>
-                        {post?.awards?.map((award, index) => {
+                        {post.awards.map((award, index) => {
                             return (
                                 <Tooltip key={index} label={award.description} aria-label="Award tooltip">
                                     <Flex>
@@ -29,12 +25,12 @@ export default function PreviewImage(props) {
                 </ModalHeader>
                 <ModalCloseButton />
                 <ModalBody>
-                    <Image cursor="pointer" src={post?.src} />
-                    <Text mt={3} fontSize="lg" fontWeight="semibold">{post?.title}</Text>
-                    <Text fontSize="xs" mt={2}>Posted by <Link>u/{post?.author}</Link> {dayjs(post?.created_utc).fromNow()}</Text>
+                    <Image cursor="pointer" src={post.src} />
+                    <Text mt={3} fontSize="lg" fontWeight="semibold">{post.title}</Text>
+                    <Text fontSize="xs" mt={2}>Posted by <Link>u/{post.author}</Link> {post.createdAt}</Text>
                 </ModalBody>
                 <ModalFooter>
-                    <Link href={post?.permalink} isExternal mr={3}>
+                    <Link href={post.permalink} isExternal mr={3}>
                     Open in Reddit <ExternalLinkIcon mx="2px" />
                     </Link>
                     {/* <Button variant="ghost">View in Reddit</Button> */}

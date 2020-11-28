@@ -1,9 +1,9 @@
-import { Box, Container, Button, IconButton, useColorMode, Menu, MenuButton, MenuList, MenuGroup, MenuItem } from "@chakra-ui/react";
-import { MoonIcon, SunIcon } from '@chakra-ui/icons';
-import { FilterIcon, FireIcon, ChartBarIcon, LightBulbIcon } from '../styles/icons';
+import { Box, Container, Button, IconButton, useColorMode, Menu, MenuButton, MenuList, MenuOptionGroup, MenuItemOption } from "@chakra-ui/react";
+import { MoonIcon } from '@chakra-ui/icons';
+import { FilterIcon, LightBulbIcon } from '../styles/icons';
 
-export default function Header(props) {
-    const { colorMode, toggleColorMode } = useColorMode()
+export default function Header({ filter, setFilter, ...props }) {
+    const { colorMode, toggleColorMode } = useColorMode();
 
     const themeIcon = colorMode === 'light' ? <MoonIcon /> : <LightBulbIcon />;
 
@@ -15,20 +15,11 @@ export default function Header(props) {
                     <Menu>
                         <MenuButton as={IconButton} variant="ghost" aria-label="Toggle theme" icon={<FilterIcon />} />
                         <MenuList>
-                        <MenuGroup title="Sort by">
-                            <MenuItem>
-                                <FireIcon mr={2} />
-                                <span>Hot</span>
-                            </MenuItem>
-                            <MenuItem>
-                                <SunIcon mr={2} />
-                                <span>New</span>
-                            </MenuItem>
-                            <MenuItem>
-                                <ChartBarIcon mr={2} />
-                                <span>Top</span>
-                            </MenuItem>
-                        </MenuGroup>
+                            <MenuOptionGroup title="Filter" defaultValue={filter} type="radio" onChange={setFilter}>
+                                <MenuItemOption value="hot">Hot</MenuItemOption>
+                                <MenuItemOption value="new">New</MenuItemOption>
+                                <MenuItemOption value="top">Top</MenuItemOption>
+                            </MenuOptionGroup>
                         </MenuList>
                     </Menu>
                     <IconButton ml={1} onClick={toggleColorMode} variant="ghost" aria-label="Toggle theme" icon={themeIcon} />
