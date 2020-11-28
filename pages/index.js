@@ -24,8 +24,7 @@ export default function Home() {
   } = useRedditPosts('battlestations', filter);
 
   if (error) {
-    console.log(error)
-    return <Text>Error!</Text>
+    return (<Text p={4}>An error occurred. Please <Link href="/">reload</Link>.</Text>)
   }
 
   const postsMapped = !isLoadingInitialData ? posts.filter(i => i.data.post_hint === 'image').map((post) => {
@@ -55,7 +54,6 @@ export default function Home() {
   }) : [];
 
   const view = (post) => {
-    console.log('post', post)
     setSelectedPost(post);
     onOpen();
   }
@@ -71,18 +69,14 @@ export default function Home() {
           <SimpleGrid columns={{ base: 1, md: 2, lg: 3 }} spacing={5} mt={5}>
             {postsMapped.map((post) => <Card key={post.id} post={post} onImageClick={view}  />)}
 
-            {(isLoadingInitialData || isLoadingMore) && [...Array(15).keys()].map((item) => (
-              <Skeleton key={item}>
-                <Box h="240px" />
-              </Skeleton>
-            ))}
+            {(isLoadingInitialData || isLoadingMore) && [...Array(15).keys()].map((item) => <Skeleton key={item} height="240px" />)}
           </SimpleGrid>
 
           { !isReachingEnd && <Box textAlign="center" mt={5}>
             <Button onClick={() => setSize(size + 1)} isLoading={isLoadingMore}>Load More</Button>
           </Box> }
       </Container>
-      { selectedPost && <PreviewImage isOpen={isOpen} onClose={onClose} post={selectedPost} onImageClick={view} />}
+      { selectedPost && <PreviewImage isOpen={isOpen} onClose={onClose} post={selectedPost} />}
     </Box>
   )
 }
