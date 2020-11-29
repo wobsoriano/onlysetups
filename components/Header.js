@@ -16,7 +16,7 @@ import PropTypes from 'prop-types';
 
 import { FilterIcon, LightBulbIcon } from '../styles/icons';
 
-export default function Header({ filter, setFilter, subreddit, setSubreddit, ...props }) {
+export default function Header({ filter, setFilter, subreddit, setSubreddit }) {
     const { colorMode, toggleColorMode } = useColorMode();
     const bgColor = useColorModeValue('white', 'gray.800');
     const themeIcon = colorMode === 'light' ? <MoonIcon /> : <LightBulbIcon />;
@@ -26,7 +26,7 @@ export default function Header({ filter, setFilter, subreddit, setSubreddit, ...
     };
 
     return (
-        <Box {...props} position="fixed" w="100%" zIndex={1} backgroundColor={bgColor}>
+        <Box position="fixed" w="100%" zIndex={1} backgroundColor={bgColor}>
             <Container
                 maxW="xl"
                 py={3}
