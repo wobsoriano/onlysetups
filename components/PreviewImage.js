@@ -23,6 +23,8 @@ import { motion } from 'framer-motion';
 import PropTypes from 'prop-types';
 import { Carousel } from 'react-responsive-carousel';
 
+import { PostPropTypes } from '../lib/PropTypeValues';
+
 const MotionImage = motion.custom(Image);
 
 export default function PreviewImage({ isOpen, onClose, post }) {
@@ -93,5 +95,5 @@ export default function PreviewImage({ isOpen, onClose, post }) {
 PreviewImage.propTypes = {
     isOpen: PropTypes.bool.isRequired,
     onClose: PropTypes.func.isRequired,
-    post: PropTypes.object.isRequired
+    post: PostPropTypes
 };

@@ -3,6 +3,8 @@ import { Box, Flex, Img, Link, Text, useColorModeValue } from '@chakra-ui/react'
 import { motion } from 'framer-motion';
 import PropTypes from 'prop-types';
 
+import { PostPropTypes } from '../lib/PropTypeValues';
+
 const MotionImg = motion.custom(Img);
 
 export default function Card({ post, onImageClick }) {
@@ -47,6 +49,6 @@ export default function Card({ post, onImageClick }) {
 }
 
 Card.propTypes = {
-    post: PropTypes.object.isRequired,
+    post: PostPropTypes,
     onImageClick: PropTypes.func.isRequired
 };

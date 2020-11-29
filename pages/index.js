@@ -16,7 +16,7 @@ import Card from '../components/Card';
 import Head from '../components/Head';
 import Header from '../components/Header';
 import PreviewImage from '../components/PreviewImage';
-import useRedditPosts, { transformPost } from '../hooks/useRedditPosts';
+import useRedditPosts, { transformPost } from '../lib/useRedditPosts';
 
 export default function Home() {
     const { isOpen, onOpen, onClose } = useDisclosure();
@@ -90,7 +90,7 @@ export default function Home() {
                     ))}
 
                     {(isLoadingInitialData || isLoadingMore) &&
-                        [...Array(15).keys()].map((item) => (
+                        [...Array(12).keys()].map((item) => (
                             <Skeleton borderRadius={['sm', null, 'md']} key={item} height="275px" />
                         ))}
                 </SimpleGrid>
