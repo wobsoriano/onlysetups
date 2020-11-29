@@ -17,6 +17,7 @@ module.exports = {
         amd: true,
         node: true
     },
+    plugins: ['simple-import-sort'],
     extends: [
         'eslint:recommended',
         'plugin:react/recommended',
@@ -34,6 +35,8 @@ module.exports = {
                 specialLink: ['hrefLeft', 'hrefRight'],
                 aspects: ['invalidHref', 'preferButton']
             }
-        ]
+        ],
+        'simple-import-sort/imports': 'error',
+        'simple-import-sort/exports': 'error'
     }
 };

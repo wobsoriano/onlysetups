@@ -1,32 +1,31 @@
+import 'react-responsive-carousel/lib/styles/carousel.min.css';
+
 import { ExternalLinkIcon } from '@chakra-ui/icons';
 import {
+    Button,
+    Flex,
+    HStack,
     Image,
-    Text,
+    Img,
+    Link,
     Modal,
-    useBreakpointValue,
     ModalBody,
     ModalCloseButton,
     ModalContent,
+    ModalFooter,
     ModalHeader,
     ModalOverlay,
-    Button,
-    ModalFooter,
-    HStack,
+    Text,
     Tooltip,
-    Flex,
-    Link,
-    Box,
-    Tag,
-    Img
+    useBreakpointValue
 } from '@chakra-ui/react';
-import 'react-responsive-carousel/lib/styles/carousel.min.css';
-import { Carousel } from 'react-responsive-carousel';
 import { motion } from 'framer-motion';
+import PropTypes from 'prop-types';
+import { Carousel } from 'react-responsive-carousel';
 
 const MotionImage = motion.custom(Image);
 
-export default function PreviewImage(props) {
-    const { isOpen, onClose, post } = props;
+export default function PreviewImage({ isOpen, onClose, post }) {
     const size = useBreakpointValue({ base: 'md', md: '2xl' });
 
     return (
@@ -90,3 +89,9 @@ export default function PreviewImage(props) {
         </Modal>
     );
 }
+
+PreviewImage.propTypes = {
+    isOpen: PropTypes.bool.isRequired,
+    onClose: PropTypes.func.isRequired,
+    post: PropTypes.object.isRequired
+};

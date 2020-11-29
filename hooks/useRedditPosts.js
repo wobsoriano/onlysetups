@@ -1,6 +1,6 @@
-import { useSWRInfinite } from 'swr';
 import dayjs from 'dayjs';
 import relativeTime from 'dayjs/plugin/relativeTime';
+import { useSWRInfinite } from 'swr';
 
 dayjs.extend(relativeTime);
 

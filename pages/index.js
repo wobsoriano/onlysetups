@@ -1,23 +1,22 @@
+import { RepeatIcon } from '@chakra-ui/icons';
 import {
     Box,
+    Button,
     Container,
-    SimpleGrid,
-    Text,
-    useDisclosure,
-    Skeleton,
     Heading,
     Link,
-    Button
+    SimpleGrid,
+    Skeleton,
+    Text,
+    useDisclosure
 } from '@chakra-ui/react';
 import { useState } from 'react';
 
 import Card from '../components/Card';
-import PreviewImage from '../components/PreviewImage';
-import Header from '../components/Header';
 import Head from '../components/Head';
-
+import Header from '../components/Header';
+import PreviewImage from '../components/PreviewImage';
 import useRedditPosts, { transformPost } from '../hooks/useRedditPosts';
-import { RepeatIcon } from '@chakra-ui/icons';
 
 export default function Home() {
     const { isOpen, onOpen, onClose } = useDisclosure();
@@ -51,10 +50,6 @@ export default function Home() {
             !item.data.media
         )
             return true;
-
-        // if (!item.data.stickied) {
-        //   console.log(item.data)
-        // }
 
         return false;
     };
@@ -114,7 +109,11 @@ export default function Home() {
             {selectedPost && <PreviewImage isOpen={isOpen} onClose={onClose} post={selectedPost} />}
             <Container as="footer" maxW="xl" textAlign="center" py={10}>
                 <Text>
-                    Made with ❤️ &nbsp; by{' '}
+                    Made with{' '}
+                    <span role="img" aria-label="heart emoji">
+                        ❤️
+                    </span>{' '}
+                    by{' '}
                     <Link href="http://robsoriano.com/" isExternal>
                         Robert
                     </Link>

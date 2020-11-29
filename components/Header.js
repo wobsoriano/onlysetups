@@ -1,17 +1,19 @@
+import { MoonIcon } from '@chakra-ui/icons';
 import {
     Box,
-    Container,
     Button,
+    Container,
     IconButton,
-    useColorMode,
     Menu,
     MenuButton,
+    MenuItemOption,
     MenuList,
     MenuOptionGroup,
-    MenuItemOption,
+    useColorMode,
     useColorModeValue
 } from '@chakra-ui/react';
-import { MoonIcon } from '@chakra-ui/icons';
+import PropTypes from 'prop-types';
+
 import { FilterIcon, LightBulbIcon } from '../styles/icons';
 
 export default function Header({ filter, setFilter, subreddit, setSubreddit, ...props }) {
@@ -78,3 +80,10 @@ export default function Header({ filter, setFilter, subreddit, setSubreddit, ...
         </Box>
     );
 }
+
+Header.propTypes = {
+    filter: PropTypes.string.isRequired,
+    setFilter: PropTypes.func.isRequired,
+    subreddit: PropTypes.string.isRequired,
+    setSubreddit: PropTypes.func.isRequired
+};

@@ -1,6 +1,7 @@
-import { Box, Text, Img, Flex, useColorModeValue, Link } from '@chakra-ui/react';
 import { ArrowUpIcon } from '@chakra-ui/icons';
+import { Box, Flex, Img, Link, Text, useColorModeValue } from '@chakra-ui/react';
 import { motion } from 'framer-motion';
+import PropTypes from 'prop-types';
 
 const MotionImg = motion.custom(Img);
 
@@ -44,3 +45,8 @@ export default function Card({ post, onImageClick }) {
         </Box>
     );
 }
+
+Card.propTypes = {
+    post: PropTypes.object.isRequired,
+    onImageClick: PropTypes.func.isRequired
+};
