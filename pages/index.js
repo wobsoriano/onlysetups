@@ -65,7 +65,10 @@ export default function Home() {
 
     return (
         <Box minHeight="100vh" display="flex" flexDir="column">
-            <Head title="OnlySetups" />
+            <Head
+                title="OnlySetups"
+                description="Easily view workstations and gaming setups from reddit"
+            />
             <Header
                 filter={filter}
                 setFilter={setFilter}

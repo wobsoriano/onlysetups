@@ -1,9 +1,7 @@
 import NextHead from 'next/head';
 import PropTypes from 'prop-types';
 
-export default function Head({ title }) {
-    const description = 'Easily view workstations and gaming setups from reddit';
-
+export default function Head({ title, description }) {
     return (
         <NextHead>
             <title>{title}</title>
@@ -17,5 +15,6 @@ export default function Head({ title }) {
 }
 
 Head.propTypes = {
-    title: PropTypes.string.isRequired
+    title: PropTypes.string.isRequired,
+    description: PropTypes.string.isRequired
 };
