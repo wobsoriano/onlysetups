@@ -2,6 +2,9 @@ import { ExternalLinkIcon } from "@chakra-ui/icons";
 import { Image, Text, Modal, useBreakpointValue, ModalBody, ModalCloseButton, ModalContent, ModalHeader, ModalOverlay, Button, ModalFooter, HStack, Tooltip, Flex, Link, Box, Tag, Img } from "@chakra-ui/react";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 import { Carousel } from 'react-responsive-carousel';
+import { motion } from "framer-motion";
+
+const MotionImage = motion.custom(Image);
 
 export default function PreviewImage(props) {
     const { isOpen, onClose, post } = props;
@@ -17,7 +20,7 @@ export default function PreviewImage(props) {
                             return (
                                 <Tooltip key={index} label={award.description} aria-label="Award tooltip">
                                     <Flex>
-                                        <Image src={award.src} />
+                                        <MotionImage whileHover={{ rotate: [0, 10, -10, 0] }} src={award.src} />
                                         { award.count > 1 && <Text ml="2px" fontSize="xs">3</Text> }
                                     </Flex>
                                 </Tooltip>
