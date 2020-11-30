@@ -31,12 +31,7 @@ export default function PreviewImage({ isOpen, onClose, post }) {
     const size = useBreakpointValue({ base: 'md', md: '2xl' });
 
     return (
-        <Modal
-            isCentered
-            size={size}
-            isOpen={isOpen}
-            onClose={onClose}
-            motionPreset="slideInBottom">
+        <Modal size={size} isOpen={isOpen} onClose={onClose} motionPreset="slideInBottom">
             <ModalOverlay />
             <ModalContent>
                 <ModalHeader>
