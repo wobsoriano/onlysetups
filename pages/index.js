@@ -16,13 +16,14 @@ import Card from '../components/Card';
 import Head from '../components/Head';
 import Header from '../components/Header';
 import PreviewImage from '../components/PreviewImage';
+import { PAGE_LIMIT, SUBREDDITS } from '../lib/constants';
 import useRedditPosts, { transformPost } from '../lib/useRedditPosts';
 
 export default function Home() {
     const { isOpen, onOpen, onClose } = useDisclosure();
     const [selectedPost, setSelectedPost] = useState(null);
     const [filter, setFilter] = useState('hot');
-    const [subreddit, setSubreddit] = useState('battlestations');
+    const [subreddits, setSubreddits] = useState(SUBREDDITS);
 
     const {
         posts,
@@ -32,7 +33,7 @@ export default function Home() {
         size,
         setSize,
         isReachingEnd
-    } = useRedditPosts(subreddit, filter);
+    } = useRedditPosts(subreddits, filter);
 
     if (error) {
         return (
@@ -72,8 +73,8 @@ export default function Home() {
             <Header
                 filter={filter}
                 setFilter={setFilter}
-                subreddit={subreddit}
-                setSubreddit={setSubreddit}
+                subreddits={subreddits}
+                setSubreddits={setSubreddits}
             />
             <Container maxW="xl" mt="95px" flex={1}>
                 <Box textAlign="center">
@@ -93,7 +94,7 @@ export default function Home() {
                     ))}
 
                     {(isLoadingInitialData || isLoadingMore) &&
-                        [...Array(12).keys()].map((item) => (
+                        [...Array(PAGE_LIMIT).keys()].map((item) => (
                             <Skeleton borderRadius={['sm', null, 'md']} key={item} height="275px" />
                         ))}
                 </SimpleGrid>

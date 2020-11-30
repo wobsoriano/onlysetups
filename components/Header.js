@@ -14,9 +14,10 @@ import {
 } from '@chakra-ui/react';
 import PropTypes from 'prop-types';
 
+import { SUBREDDITS } from '../lib/constants';
 import { FilterIcon, LightBulbIcon } from '../styles/icons';
 
-export default function Header({ filter, setFilter, subreddit, setSubreddit }) {
+export default function Header({ filter, setFilter, subreddits, setSubreddits }) {
     const { colorMode, toggleColorMode } = useColorMode();
     const bgColor = useColorModeValue('white', 'gray.800');
     const themeIcon = colorMode === 'light' ? <MoonIcon /> : <LightBulbIcon />;
@@ -37,7 +38,7 @@ export default function Header({ filter, setFilter, subreddit, setSubreddit }) {
                     OnlySetups
                 </Button>
                 <Box>
-                    <Menu>
+                    <Menu closeOnSelect={false}>
                         <MenuButton
                             as={IconButton}
                             variant="ghost"
@@ -56,15 +57,19 @@ export default function Header({ filter, setFilter, subreddit, setSubreddit }) {
                             </MenuOptionGroup>
                             <MenuOptionGroup
                                 title="Subreddit"
-                                defaultValue={subreddit}
-                                type="radio"
-                                onChange={setSubreddit}>
-                                <MenuItemOption value="battlestations">
-                                    r/battlestations
-                                </MenuItemOption>
-                                <MenuItemOption value="gamingsetups">r/gamingsetups</MenuItemOption>
-                                <MenuItemOption value="setups">r/setups</MenuItemOption>
-                                <MenuItemOption value="desksetup">r/desksetup</MenuItemOption>
+                                type="checkbox"
+                                defaultValue={subreddits}
+                                onChange={setSubreddits}>
+                                {SUBREDDITS.map((sub, idx) => (
+                                    <MenuItemOption
+                                        key={idx}
+                                        value={sub}
+                                        isDisabled={
+                                            subreddits.length === 1 && subreddits.includes(sub)
+                                        }>
+                                        r/{sub}
+                                    </MenuItemOption>
+                                ))}
                             </MenuOptionGroup>
                         </MenuList>
                     </Menu>
@@ -84,6 +89,6 @@ export default function Header({ filter, setFilter, subreddit, setSubreddit }) {
 Header.propTypes = {
     filter: PropTypes.string.isRequired,
     setFilter: PropTypes.func.isRequired,
-    subreddit: PropTypes.string.isRequired,
-    setSubreddit: PropTypes.func.isRequired
+    subreddits: PropTypes.arrayOf(PropTypes.string).isRequired,
+    setSubreddits: PropTypes.func.isRequired
 };
