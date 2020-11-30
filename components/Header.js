@@ -50,7 +50,10 @@ export default function Header({ filter, setFilter, subreddits, setSubreddits })
                                 title="Filter"
                                 defaultValue={filter}
                                 type="radio"
-                                onChange={setFilter}>
+                                onChange={(val) => {
+                                    setFilter(val);
+                                    scrollToTop();
+                                }}>
                                 <MenuItemOption value="hot">Hot</MenuItemOption>
                                 <MenuItemOption value="new">New</MenuItemOption>
                                 <MenuItemOption value="top">Top</MenuItemOption>
@@ -59,7 +62,10 @@ export default function Header({ filter, setFilter, subreddits, setSubreddits })
                                 title="Subreddit"
                                 type="checkbox"
                                 defaultValue={subreddits}
-                                onChange={setSubreddits}>
+                                onChange={(val) => {
+                                    setSubreddits(val);
+                                    scrollToTop();
+                                }}>
                                 {SUBREDDITS.map((sub, idx) => (
                                     <MenuItemOption
                                         key={idx}
