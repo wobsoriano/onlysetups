@@ -18,9 +18,9 @@ import { SUBREDDITS } from '../lib/constants';
 import { FilterIcon, LightBulbIcon } from '../styles/icons';
 
 export default function Header({ filter, setFilter, subreddits, setSubreddits }) {
-    const { colorMode, toggleColorMode } = useColorMode();
+    const { toggleColorMode } = useColorMode();
     const bgColor = useColorModeValue('white', 'gray.800');
-    const themeIcon = colorMode === 'light' ? <MoonIcon /> : <LightBulbIcon />;
+    const themeIcon = useColorModeValue(<MoonIcon />, <LightBulbIcon />);
 
     const scrollToTop = () => {
         window.scrollTo({ top: 0, behavior: 'smooth' });
