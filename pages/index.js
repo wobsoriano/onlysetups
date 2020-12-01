@@ -13,7 +13,6 @@ import {
 import { useState } from 'react';
 
 import Card from '../components/Card';
-import Head from '../components/Head';
 import Header from '../components/Header';
 import PreviewImage from '../components/PreviewImage';
 import { PAGE_LIMIT, SUBREDDITS } from '../lib/constants';
@@ -66,10 +65,6 @@ export default function Home() {
 
     return (
         <Box minHeight="100vh" display="flex" flexDir="column">
-            <Head
-                title="OnlySetups"
-                description="Easily view workstations and gaming setups from reddit"
-            />
             <Header
                 filter={filter}
                 setFilter={setFilter}
