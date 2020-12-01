@@ -8,10 +8,8 @@ import {
     SimpleGrid,
     Skeleton,
     Text,
-    useDisclosure,
-    useToast
+    useDisclosure
 } from '@chakra-ui/react';
-import { useEffect } from 'react';
 import { useState } from 'react';
 
 import Card from '../components/Card';
@@ -25,7 +23,6 @@ export default function Home() {
     const [selectedPost, setSelectedPost] = useState(null);
     const [filter, setFilter] = useState('hot');
     const [subreddits, setSubreddits] = useState(SUBREDDITS);
-    const toast = useToast();
 
     const {
         posts,
@@ -36,31 +33,6 @@ export default function Home() {
         setSize,
         isReachingEnd
     } = useRedditPosts(subreddits, filter);
-
-    // Show toast on new content
-    useEffect(() => {
-        console.log('run');
-        if (
-            typeof window !== 'undefined' &&
-            'serviceWorker' in navigator &&
-            window.workbox !== undefined
-        ) {
-            const wb = window.workbox;
-
-            const promptNewVersionAvailable = () => {
-                toast({
-                    position: 'bottom',
-                    status: 'info',
-                    title: 'New content available',
-                    description: 'Please refresh to install updates'
-                });
-            };
-
-            wb.addEventListener('waiting', promptNewVersionAvailable);
-            wb.addEventListener('externalwaiting', promptNewVersionAvailable);
-            wb.register();
-        }
-    }, [toast]);
 
     if (error) {
         return (
