@@ -2,6 +2,7 @@ import 'react-responsive-carousel/lib/styles/carousel.min.css';
 
 import { ExternalLinkIcon } from '@chakra-ui/icons';
 import {
+    Box,
     Button,
     Flex,
     HStack,
@@ -68,15 +69,13 @@ export default function PreviewImage({ isOpen, onClose, post }) {
                 <ModalCloseButton />
                 <ModalBody>
                     {post.isGallery ? (
-                        <Carousel
-                            mt={imageMarginTop}
-                            showThumbs={false}
-                            dynamicHeight
-                            useKeyboardArrows>
-                            {post.gallery.map((src) => (
-                                <Img key={src} src={src} />
-                            ))}
-                        </Carousel>
+                        <Box w="100%" mt={imageMarginTop}>
+                            <Carousel showThumbs={false} dynamicHeight useKeyboardArrows>
+                                {post.gallery.map((src) => (
+                                    <Img key={src} src={src} />
+                                ))}
+                            </Carousel>
+                        </Box>
                     ) : (
                         <Img mt={imageMarginTop} src={post.src} />
                     )}
