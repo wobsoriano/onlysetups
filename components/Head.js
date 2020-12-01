@@ -15,7 +15,7 @@ export default function Head({ title, description }) {
             <meta property="og:image" content="https://og-image.vercel.app/OnlySetups.png" />
             <link rel="manifest" href="/manifest.json" />
             <link rel="icon" href="/favicon.ico" />
-            <meta name="theme-color" content="#FFFFFF" />
+            <meta name="theme-color" content="#000000" />
         </NextHead>
     );
 }
