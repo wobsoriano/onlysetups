@@ -29,6 +29,7 @@ const MotionImage = motion.custom(Image);
 
 export default function PreviewImage({ isOpen, onClose, post }) {
     const size = useBreakpointValue({ base: 'md', md: '2xl' });
+    const imageMarginTop = !post.awards.length ? 3 : 0;
 
     return (
         <Modal
@@ -67,13 +68,17 @@ export default function PreviewImage({ isOpen, onClose, post }) {
                 <ModalCloseButton />
                 <ModalBody>
                     {post.isGallery ? (
-                        <Carousel showThumbs={false} dynamicHeight useKeyboardArrows>
+                        <Carousel
+                            mt={imageMarginTop}
+                            showThumbs={false}
+                            dynamicHeight
+                            useKeyboardArrows>
                             {post.gallery.map((src) => (
                                 <Img key={src} src={src} />
                             ))}
                         </Carousel>
                     ) : (
-                        <Img src={post.src} />
+                        <Img mt={imageMarginTop} src={post.src} />
                     )}
                     <Text mt={3} fontSize="lg" fontWeight="semibold">
                         {post.title}
