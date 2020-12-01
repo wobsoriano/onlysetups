@@ -87,10 +87,12 @@ export default function PreviewImage({ isOpen, onClose, post }) {
                     </Text>
                 </ModalBody>
                 <ModalFooter>
+                    <Button onClick={onClose}>Close</Button>
                     <Button
+                        ml={3}
+                        variant="ghost"
                         as="a"
                         rightIcon={<ExternalLinkIcon />}
-                        colorScheme="gray"
                         href={post.permalink}
                         target="_blank"
                         mr={3}>
