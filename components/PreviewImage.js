@@ -43,7 +43,7 @@ export default function PreviewImage({ isOpen, onClose, post }) {
             <ModalOverlay />
             <ModalContent>
                 <ModalHeader>
-                    <HStack spacing={1}>
+                    <HStack spacing={2}>
                         {post.awards.map((award, index) => {
                             return (
                                 <Tooltip
