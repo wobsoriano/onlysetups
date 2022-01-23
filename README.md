@@ -28,7 +28,7 @@ The easiest way to deploy your Next.js app is to use the [Vercel Platform](https
 - [Next.js](https://nextjs.org/)
 - [SWR](https://swr.vercel.app/)
 - [Reddit API](https://www.reddit.com/dev/api/)
-- [Vercel](vercel.com)
+- [Vercel](https://vercel.com)
 
 ## License & copyright
 
